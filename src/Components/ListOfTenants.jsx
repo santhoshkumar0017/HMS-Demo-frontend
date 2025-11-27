@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { getTenants } from '../Service/TenantService'
+import { deleteTenantById, getTenants } from '../Service/TenantService'
 
 import {useNavigate} from 'react-router-dom'
 function ListOfTenants() {
@@ -21,6 +21,16 @@ function ListOfTenants() {
 
   function addTenant(){
     navigate('/add/tenant')
+  }
+
+   function updateTenant(id){
+    navigate(`/update/tenant/${id}`)
+  }
+ 
+  function deleteTenant(id){
+   deleteTenantById(id).then((response) => {
+    getAllTenants();
+   }).catch(err => console.log(err))
   }
 
   return (
@@ -44,6 +54,7 @@ function ListOfTenants() {
             <th>Room type</th>
             <th>Room no</th>
             <th>Floor</th>
+            <th>Update & Delete</th>
           </tr>
 
          </thead>
@@ -62,6 +73,10 @@ function ListOfTenants() {
                 <td>{tenant.roomType}</td>
                 <td>{tenant.roomNo}</td>
                 <td>{tenant.floor}</td>
+                <td>
+                  <button className='btn btn-success' onClick={() => updateTenant(tenant.id)}>Update</button>
+                  <button className='btn btn-danger m' style={{marginLeft:'10px'}} onClick={() => deleteTenant(tenant.id)}>Delete</button>
+                </td>
              </tr> ) })
 
             }

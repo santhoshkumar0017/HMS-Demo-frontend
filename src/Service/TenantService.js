@@ -10,4 +10,4 @@ export const getTenantById=(id) => axios.get(REST_API_URL+'/'+id);
 
 export const updateTenant=(id,tenant) =>axios.put(REST_API_URL+'/'+id,tenant);
 
-export const deleteTenant=(id) => axios.delete(REST_API_URL+'/'+id);
+export const deleteTenantById=(id) => axios.delete(REST_API_URL+'/'+id);

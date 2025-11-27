@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { createTenant, updateTenant, getTenantById } from "../Service/TenantService";
 
+
 function TenantComponent() {
 
   const [name, setName] = useState("");
@@ -23,7 +24,6 @@ function TenantComponent() {
     floor: "",
   });
 
-  // Load existing tenant for update
   useEffect(() => {
     if (id) {
       getTenantById(id)
@@ -39,7 +39,7 @@ function TenantComponent() {
     }
   }, [id]);
 
-  // Submit form
+  
   function saveOrUpdateTenants(e) {
     e.preventDefault();
 
@@ -67,29 +67,56 @@ function TenantComponent() {
     }
   }
 
-  // Validation
   function validateForm() {
     let valid = true;
-    const errorCopy = { ...errors };
+    const errorsCopy = { ...errors };
 
-    errorCopy.name = name.trim() ? "" : "Enter the name";
-    errorCopy.email = email.trim() ? "" : "Enter the email";
-    errorCopy.phoneNumber = phoneNumber.trim() ? "" : "Enter phone number";
-    errorCopy.roomType = roomType.trim() ? "" : "Select room type";
-    errorCopy.roomNo = roomNo.trim() ? "" : "Select room number";
-    errorCopy.floor = floor.trim() ? "" : "Select floor";
+    if (name.trim()) {
+      errorsCopy.name = "";
+    }
+    else {
+       errorsCopy.name = "Name is required"; valid = false;
+       }
 
-    valid =
-      !errorCopy.name &&
-      !errorCopy.email &&
-      !errorCopy.phoneNumber &&
-      !errorCopy.roomType &&
-      !errorCopy.roomNo &&
-      !errorCopy.floor;
+    if (email.trim()){
+      errorsCopy.email = "";
+    } 
+    else { 
+      errorsCopy.email = "Email is required"; valid = false;
+     }
 
-    setErrors(errorCopy);
+    if (phoneNumber.trim()) {
+          errorsCopy.phoneNumber = "";
+    }
+    else {
+       errorsCopy.phoneNumber = "Phone Number is required"; valid = false; 
+      }
+
+    if (roomType.trim()){
+       errorsCopy.roomType = "";
+    }
+    else {
+       errorsCopy.type = "Room type is required"; valid = false;
+       }
+
+    if (roomNo.trim()) {
+      errorsCopy.roomNo = "";
+    }
+    else {
+       errorsCopy.roomNo = "Room number is required"; valid = false;
+       }
+
+    if (floor.trim()){
+     errorsCopy.floor = "";
+    } 
+    else { 
+      errorsCopy.floor = "Floor is required"; valid = false; 
+    }
+
+    setErrors(errorsCopy);
     return valid;
   }
+
 
   function pageTitle() {
     return id ? (
