@@ -21,7 +21,7 @@ function App() {
      <Route path='/add/tenant' element={<TenantComponent/>}> </Route> 
 
      <Route path='/update/tenant/:id' element={<TenantComponent/>}> </Route> 
-
+//hrtrth
 
      </Routes>
      
